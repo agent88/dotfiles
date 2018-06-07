@@ -6,3 +6,6 @@
 ##     by zer0Bytes                    ##
 #########################################
 
+source ./bash.d/linkdot
+linkdots all
+
