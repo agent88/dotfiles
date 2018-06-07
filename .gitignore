@@ -17,6 +17,12 @@ config/*
 !config/htop
 !config/htop/htoprc
 
+!config/rofi
+!config/rofi/config
+
+!termite
+!termite/config
+
 !config/i3
 !config/i3/config
 !config/i3lock

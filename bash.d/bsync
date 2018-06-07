@@ -1,0 +1,4 @@
+#!/bin/bash
+bsync() {
+	browser-sync start --server "$1" --files "$1"
+}

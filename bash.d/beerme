@@ -1,0 +1,34 @@
+#!/bin/bash
+
+beerme() {
+	OS=$(lsb_release -is)	
+
+	case "$OS" in
+		Arch ) 
+			apacman -Syyuu --noedit --noconfirm
+			pkill -RTMIN+2 i3blocks
+		;;
+		Ubuntu ) 
+			sudo apt update
+			sudo apt full-upgrade -y
+			sudo apt autoremove -y
+			pkill -RTMIN+2 i3blocks
+		;;
+		Debian ) 
+			sudo apt update
+			sudo apt full-upgrade -y
+			sudo apt autoremove -y
+			pkill -RTMIN+2 i3blocks
+		;;
+		Kali ) 
+			sudo apt update
+			sudo apt full-upgrade -y
+			sudo apt autoremove -y
+			pkill -RTMIN+2 i3blocks
+		;;
+		Ami )
+			sudo yum update
+			sudo yum upgrade -y
+			sudo yum autoremove -y
+	esac
+}
