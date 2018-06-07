@@ -1,0 +1,10 @@
+#!/bin/bash
+
+function INSTALL_UNCLUTTER-XFIXES {
+        cd /tmp
+        git clone https://github.com/Airblader/unclutter-xfixes
+        cd unclutter-xfixes
+        make
+        sudo make install
+}
+

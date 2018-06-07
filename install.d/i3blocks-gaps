@@ -1,0 +1,9 @@
+function INSTALL_I3BLOCKS-GAPS {
+	cd /tmp
+	git clone https://github.com/Airblader/i3blocks-gaps.git
+	cd i3blocks-gaps
+	make clean debug
+	make
+	sudo make install
+	cd ~/
+}

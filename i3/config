@@ -173,6 +173,21 @@ mode "$mode_resize" {
     bindsym Escape mode "default"
 }
 
+set $mode_power <span>        </span><span background='#fabd2f' foreground='#000000'> power </span> <span foreground='#ebdbb2'>l</span>ock <span foreground='#ebdbb2'>e</span>xit <span foreground='#ebdbb2'>s</span>uspend <span foreground='#ebdbb2'>r</span>eboot <span foreground='#ebdbb2'>p</span>oweroff
+mode --pango_markup "$mode_power" {
+    bindsym l mode "default", exec --no-startup-id $HOME/.i3/i3exit lock
+    bindsym e mode "default", exec --no-startup-id $HOME/.i3/i3exit logout
+    bindsym s mode "default", exec --no-startup-id $HOME/.i3/i3exit suspend
+    bindsym h mode "default", exec --no-startup-id $HOME/.i3/i3exit hibernate
+    bindsym r mode "default", exec --no-startup-id $HOME/.i3/i3exit reboot
+    bindsym p mode "default", exec --no-startup-id $HOME/.i3/i3exit shutdown
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+Control+l mode "$mode_power"
+bindsym Mod1+Control+l mode "$mode_power"
+
 set $mode_gaps gaps
 set $mode_gaps_outer outer gaps
 set $mode_gaps_inner inner gaps
@@ -250,7 +265,7 @@ for_window [class=(?i)thunar] border pixel 3
 for_window [class=(?i)chrome] border pixel 3
 for_window [class=(?i)brave] border pixel 3
 for_window [class=(?i)gnome-calculator] border pixel 3
-for_window [class=(?i)calculator] border pixel 3
+for_window [class=(l?i)calculator] border pixel 3
 
 for_window [window_role="pop-up"] floating enable
 for_window [window_role="bubble"] floating enable

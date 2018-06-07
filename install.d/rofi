@@ -1,0 +1,35 @@
+#!/bin/bash
+
+function INSTALL_ROFI_MENU {
+	sudo apt update
+	sudo apt install -y	build-essential \ 
+				autoconf \
+				automake \
+				make \
+				pkg-config \
+				libpango-dev \
+				libpangocairo-dev \
+				libcairo-dev \
+				libcairo-xcb \
+				libglib2.0 \
+				gio-unix-2.0 \
+				libstartup-notification-1.0 \
+				libxkbcommon-dev \
+				libxkbcommon-x11-dev \
+				xcb-util \
+				xcb-util-wm \
+				gmodule-2.0 \
+				librsvg2.0 \
+				flex \
+				bison
+	cd /tmp
+	git clone https://github.com/DaveDavenport/rofi
+	cd rofi/
+	git submodule update --init
+	autoreconf -i
+	mkdir build
+	cd build
+	../configure --prefix=/usr/local/
+	make
+	sudo make install 
+}

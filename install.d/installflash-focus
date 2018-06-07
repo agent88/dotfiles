@@ -1,0 +1,11 @@
+#!/bin/bash
+
+function INSTALL_FLASH-FOCUS {
+	cd /tmp
+	git clone https://github.com/Airblader/flashfocus.git
+	cd flashfocus
+	pip install -r requirments requirements.txt
+	python install setup.py
+	cd ~/
+}
+

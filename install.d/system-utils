@@ -1,0 +1,40 @@
+function INSTALL_SYSTEM_UTILS {
+	apt install -y \
+		fonts-font-awesome \
+		fonts-hack-ttf \
+		fonts-hack-otf \
+		python2 \
+		python3 \
+		python-netifaces \
+		python-yaml \
+		python-pillow \
+		python-urllib3 \
+		python2-suds \
+		xorg-xinit \
+		xedgewarp-git \
+		compton \
+		compton \
+		neofetch \
+		startup-notification \
+		gnome-keyring \
+		yajl \
+		libev \
+		dunst \
+		tk \
+		evince \
+		thunar \
+		thunar-archive-plugin \
+		file-roller \
+		libmtp \
+		gvfs-mtp \
+		feh \
+		eog \
+		imagemagick \
+		tumbler \
+		numix-themes \
+		numix-icon-theme \
+		main \
+		slop \
+		youtube-dl \
+		gsimplecal
+}

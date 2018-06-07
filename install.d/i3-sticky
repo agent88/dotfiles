@@ -1,0 +1,5 @@
+function INSTALL_I3-STICKY {
+	cd /tmp
+	git clone https://github.com/Airblader/i3-sticky.git
+	cd i3-sticky
+}
