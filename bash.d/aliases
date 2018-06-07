@@ -8,36 +8,22 @@ alias grep='grep --color=tty -d skip'
 alias df='df -h'                          # human-readable sizes
 alias du='du -hS'
 alias l='clear'
-alias c='cat'
 alias x='exit'
 alias i='sudo -i'
-alias r='xrandr --output eDP1 --mode 2048x1152 --auto'
-alias refresh='xrandr --output eDP1 --mode 2560x1440 --auto'
-
-# pacman
-alias update='sudo pacman -Sy'
-alias upgrade='sudo pacman -Syuu'
-alias install='packer --noedit --noconfirm -S'
-alias remove='sudo pacman -Rsc'
-alias search='packer -Ss'
-alias pacman='sudo pacman'
-alias pinfo='packer -Si'
-# packer
-alias packer='packer --noedit'
 
 # nano
-alias xbash='nano /home/loki/.bashrc && source /home/loki/.bashrc && echo "BASH Reloaded"'
-alias b='nano /home/loki/.bashrc && source /home/loki/.bashrc && echo "BASH Reloaded"'
-alias xxbash='source /home/loki/.bashrc && echo "BASH Reloaded"'
-alias xaliases='nano /home/loki/.bash_aliases && source /home/loki/.bashrc && echo "BASH Reloaded"'
 alias a='nano /home/loki/.bash.d/aliases && source /home/loki/.bashrc && echo "BASH Reloaded"'
-alias xnanorc='sudo nano /etc/nanorc'
+alias b='nano /home/loki/.bashrc && source /home/loki/.bashrc && echo "BASH Reloaded"'
+alias c='cat'
+alias d='df -h && du -hs pwd'
+
 
 # commands
 alias visudo='sudo visudo'
 alias service='sudo service'
 alias shutdown='sudo shutdown now'
 alias reboot='sudo reboot'
+alias nanorc='sudo nano /etc/nanorc'
 
 # File Utils
 alias cp='sudo cp -av'

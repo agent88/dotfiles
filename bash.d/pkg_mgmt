@@ -1,0 +1,33 @@
+#!/bin/bash 
+#
+# zer0bytes pkg management functions
+#
+# by zer0bytes
+#
+
+function update {
+	sudo apt update
+}
+
+function upgrade {
+	sudo apt full-upgrade -y
+	sudo apt autoremove -y
+}
+
+function install {
+	sudo apt install -y "$*"
+	sudo apt autoremove -y
+}
+
+function remove {
+	sudo apt remove --purge "$1"
+	sudo apt autoremove -y
+}
+
+function clean {
+	sudo apt autoremove -y
+}
+
+function search {
+	apt search "$1"
+}
