@@ -1,0 +1,25 @@
+#!/bin/bash
+
+linkdots() {
+	HOME=/home/ubuntu/
+	DOTFILES="$HOME".dotfiles/
+	
+	cd "$DOTFILES"
+	for FOLDERS in *;
+	do
+		echo "Checking $FOLDERS"
+		if [[ -d "$FOLDERS" ]]; then
+			echo "Backing up $FOLDERS"
+			mv "$HOME"."$FOLDERS" ~/."$FOLDERS".backup
+			echo "Now linking $FOLDERS"
+			ln -snf "$FOLDERS" ~/."$FOLDERS"
+		else
+			echo "Linking $FOLDERS"
+			ln -snf "$FOLDERS" ~/."$FOLDERS"
+		fi
+	done
+
+	# shellcheck disable=SC1091
+	source ~/.bashrc
+	echo "Dotfiles Linked! (\",)"
+}

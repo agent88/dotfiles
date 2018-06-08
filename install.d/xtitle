@@ -3,5 +3,6 @@
 function INSTALL_XTITLE {
 	cd /tmp
 	git clone https://github.com/Airblader/xtitle.git
+	cd xtitle
 	make all
 }

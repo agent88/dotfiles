@@ -36,5 +36,6 @@ function INSTALL_SYSTEM_UTILS {
 		main \
 		slop \
 		youtube-dl \
-		gsimplecal
+		gsimplecal \
+		termite
 }

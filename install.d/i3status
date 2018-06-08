@@ -1,0 +1,18 @@
+#!/bin/bash
+
+function INSTALL_I3STATUS {
+	sudo apt update
+	sudo apt install -y	libconfuse-dev \
+				libyajl-dev \
+				libasound2-dev \
+				libiw-dev \
+				asciidoc \
+				libcap2-bin \
+				libpulse-dev
+	cd /tmp
+	git clone https://github.com/Airblader/i3status.git
+	cd i3status
+	export PREFIX=/usr/local
+	make all
+	sudo make install
+}

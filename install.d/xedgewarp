@@ -1,0 +1,9 @@
+#!/bin/bash
+
+function INSTALL_XEDGEWARP {
+	cd /tmp
+	git clone https://github.com/Airblader/xedgewarp
+	cd xedgewarp
+	make
+	sudo make install
+}

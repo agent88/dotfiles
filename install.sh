@@ -6,15 +6,22 @@
 ## by zer0Bytes##
 #########################################
 
-source ./bash.d/linkdot
+source ~/.dotfiles/bash.d/linkdot
 linkdots all
 
-if [ -d ./install.d ]; then
-    for i in ./install.d/*; do
+if [ -d ~/.dotfiles/install.d ]; then
+    for i in ~/.dotfiles/install.d/*; do
         [ -f "${i}" ] && source "${i}"
     done
 fi
 
+"$system-utils"
+"$xtitle"
+"$unclutter-xfixes"
+"$i3-wm"
+"$i3blocks-gaps"
+"$betterscreenlock"
+"$flash-focus"
+"$rofi"
 
-
-}
+echo "Server customisation complete"
