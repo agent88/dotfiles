@@ -9,10 +9,10 @@
 export USER_DIR=/home/ubuntu
 export NODE_VERSION=v10.2.0 # Node.js version to install
 export TERM=xterm
-export EC2_DOMAIN=
-export EC2_USER=
-export GITHUB_USER=loriezn
-export GITHUB_ACCESS_TOKEN=cb3b3ef296945bdf8c06c79949062125d17d9538
+export EC2_DOMAIN=redelectron.xyz
+export EC2_USER=ubuntu
+export GITHUB_USER=agent88
+export GITHUB_ACCESS_TOKEN=36732bd464edae621f6ec7e429c5bd9e1a2c7bc7
 export SSH_KEYREG_FILE=${HOME}/.bash.d/ssh-keyreg
 export WEBSITE_TARBALL_FILE_LOCATION=~/fake_sites/completed_mods/bubbleshinecleaning.tar.gz
 
@@ -57,6 +57,18 @@ function SETUP_EC2_BASE_PKGS {
   ssh "$EC2_USER"@"$EC2_DOMAIN" 'sudo apt install -y htop git openssh'
 }
 
+function CONFIGURE_EC2_SSHGIT {
+  eco "Creating Instance SSH Keys"
+  sleep 0.5
+  ssh "$EC2_USER"@"$EC2_DOMAIN" 'ssh-keygen -t rsa -b 4096 -P "" -C "$USER@$HOSTNAME" -f ~/.ssh/id_rsa'
+  scp "$EC2_USER"@"$EC2_DOMAIN" "$SSH_KEYREG_FILE" "$EC2_USER"@"$EC2_DOMAIN":
+  ssh "$EC2_USER"@"$EC2_DOMAIN" 'sudo chmod +x ~/ssh-keyreg'
+  ssh "$EC2_USER"@"$EC2_DOMAIN" 'echo ssh-keyreg | tee --append ~/ssh-keyreg'
+  ssh "$EC2_USER"@"$EC2_DOMAIN" 'sudo cp ~/ssh-keyreg /usr/local/bin'
+  ssh "$EC2_USER"@"$EC2_DOMAIN" "ssh-keyreg -u $GITHUB_USER:$GITHUB_ACCESS_TOKEN -p ~/.ssh/id_rsa.pub"
+  ssh "$EC2_USER"@"$EC2_DOMAIN" 'ssh -T git@github.com'
+}
+
 function SETUP_EC2_DOCKER {
   eco "Setting up docker"
   ssh "$EC2_USER"@"$EC2_DOMAIN" 'sudo apt-get install apt-transport-https ca-certificates curl software-properties-common'
@@ -72,13 +84,18 @@ function SETUP_EC2_DOCKER {
   ssh "$EC2_USER"@"$EC2_DOMAIN" 'sudo chmod +x /usr/local/bin/docker-compose'
 }
 
+function CONFIGURE_EC2_DOTFILES {
+  eco "Configuring system dotfiles"
+  ssh "$EC2_USER"@"$EC2_DOMAIN" 'git clone git@github.com:agent88/dotfiles.git .dotfiles'
+  ssh "$EC2_USER"@"$EC2_DOMAIN" 'bash ~/.dotfiles/install.sh'
+}
+
 function SETUP_ECC2_NODEJS {
   eco "Installing latest NVM"
   ssh "$EC2_USER"@"$EC2_DOMAIN" 'git clone git://github.com/creationix/nvm.git $USER_DIR/.nvm'
   ssh "$EC2_USER"@"$EC2_DOMAIN" 'echo . $USER_DIR/.nvm/nvm.sh >> $USER_DIR/.bashrc'
   ssh "$EC2_USER"@"$EC2_DOMAIN" '/. $USER_DIR/.bashrc' # Ensure variables are available within the current shell
 
-  # Install Node.JS (+npm)
   eco "Installing Node.js"
   ssh "$EC2_USER"@"$EC2_DOMAIN" 'nvm install $NODE_VERSION'
   ssh "$EC2_USER"@"$EC2_DOMAIN" 'nvm alias default $NODE_VERSION'
@@ -105,10 +122,17 @@ function INSTALL_EC2_WORDPRESS {
 ####################
 
 # Take me home
-eco "BEAM ME UP, SCOTTY!"
-cd ~
-
 # Set Variables
+# Set hostname
+# Create data directory and attach storage volume
+# Update and install base packages
+# Connect to EC2 and create SSH Key
+# Configure dotfiles
+# Install nvm + Node.js
+
+eco "BEAM ME UP, SCOTTY!"
+cd ~ || return
+
 eco "Setting User Variables"
 echo -n "EC2 Domain: "
 read -r EC2_DOMAIN 
@@ -123,48 +147,16 @@ echo -n "Github Personal Access Token: "
 read -r GITHUB_ACCESS_TOKEN
 sleep 0.5 
 
-# Set hostname
 SET_EC2_HOSTNAME
-
-# Create data directory and attach storage volume
 CREATE_EC2_STORAGE_VOLUME
-
-# Update and install base packages
 SETUP_EC2_BASE_PKGS
-
-# Connect to EC2 and create SSH Key
-function CONFIGURE_EC2_SSHGIT {
-  eco "Creating Instance SSH Keys"
-  sleep 0.5
-  ssh "$EC2_USER"@"$EC2_DOMAIN" 'ssh-keygen -t rsa -b 4096 -P "" -C "$USER@$HOSTNAME" -f ~/.ssh/id_rsa'
-  scp "$EC2_USER"@"$EC2_DOMAIN" "$SSH_KEYREG_FILE" "$EC2_USER"@"$EC2_DOMAIN":
-  ssh "$EC2_USER"@"$EC2_DOMAIN" 'sudo chmod +x ~/ssh-keyreg'
-  ssh "$EC2_USER"@"$EC2_DOMAIN" 'sudo cp ~/ssh-keyreg /usr/local/bin'
-  ssh "$EC2_USER"@"$EC2_DOMAIN" "ssh-keyreg -u $GITHUB_USER:$GITHUB_ACCESS_TOKEN -p ~/.ssh/id_rsa.pub"
-  ssh "$EC2_USER"@"$EC2_DOMAIN" 'ssh -T git@github.com:loriezn'
-}
-
 CONFIGURE_EC2_SSHGIT
-
-# Configure dotfiles
-eco "Configuring system dotfiles"
-#git clone 
-
-# nvm + Node.js
+CONFIGURE_EC2_DOTFILES
 SETUP_ECC2_NODEJS
 SETUP_EC2_DOCKER
-
-
-
-# Get your project somehow (curl, wget, git)
-# eco "Installing User Repo Project"
-# cd ~
-# git clone https://github.com/user/repo.git
-# cd ~/repo
-# git pull https://github.com/user/repo.git
-
-# Install, setup, build, compile, whatever depending on your project
-# npm install
+INSTALL_EC2_PROXY
+INSTALL_EC2_NEXTCLOUD
+#INSTALL_EC2_WORDPRESS
 
 # WIN ?
 eco "OMG LASERS... PEW! PEW! WE'RE COMPLETE !"
