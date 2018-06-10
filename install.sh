@@ -6,11 +6,11 @@
 ## by zer0Bytes##
 #########################################
 
-source ~/.dotfiles/bash.d/linkdot
+source "$HOME".dotfiles/user.d/bash.d/linkdots
 linkdots all
 
-if [ -d ~/.dotfiles/install.d ]; then
-    for i in ~/.dotfiles/install.d/*; do
+if [ -d "$HOME".dotfiles/install.d ]; then
+    for i in "$HOME".dotfiles/install.d/*; do
         [ -f "${i}" ] && source "${i}"
     done
 fi

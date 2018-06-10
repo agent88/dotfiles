@@ -1,0 +1,8 @@
+#!/bin/bash
+
+torbrowser() {
+	
+	cd /opt/tor-browser_en-US/
+	bash start-tor-browser.desktop
+	cd ~/
+}

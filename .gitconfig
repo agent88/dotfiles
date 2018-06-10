@@ -20,7 +20,7 @@
 [push]
     default = simple
 [merge]
-    tool = vimdiff
+    tool = icdiff
 [mergetool]
     keepBackup = false
 [gui]
